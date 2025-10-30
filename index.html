@@ -3,168 +3,164 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- 不想被搜索引擎收录就保留这一行 -->
   <meta name="robots" content="noindex, nofollow" />
   <title>ruhenry的推荐站</title>
   <style>
-    /* ====== 基础样式（在这块里随便改颜色/圆角/阴影等） ====== */
     :root{
-      --bg: #fafafa;
-      --card-bg: #fff;
-      --text: #111;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --accent: #2563eb; /* 主色 */
-      --radius: 16px;
-      --shadow: 0 6px 20px rgba(0,0,0,.06);
+      --bg:#fafafa; --card:#fff; --text:#111; --muted:#6b7280; --bd:#e5e7eb;
+      --accent:#2563eb; --radius:16px; --shadow:0 6px 20px rgba(0,0,0,.06);
     }
     @media (prefers-color-scheme: dark){
-      :root{
-        --bg: #0b0d10;
-        --card-bg: #121519;
-        --text: #e9edf3;
-        --muted: #9aa4b2;
-        --border: #1f242b;
-        --shadow: 0 8px 24px rgba(0,0,0,.35);
-      }
+      :root{ --bg:#0b0d10; --card:#121519; --text:#e9edf3; --muted:#9aa4b2; --bd:#1f242b; --shadow:0 8px 24px rgba(0,0,0,.35); }
     }
-    * { box-sizing: border-box; }
-    body{
-      margin: 0; background: var(--bg); color: var(--text);
-      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-    .wrap{ max-width: 1040px; margin: 0 auto; padding: 42px 20px 64px; }
-    h1{
-      font-size: clamp(26px, 4vw, 40px);
-      margin: 0 0 18px;
-      letter-spacing: .5px;
-    }
-    .subtitle{
-      margin: 0 0 26px; color: var(--muted);
-    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);
+      font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;}
+    .wrap{max-width:1120px;margin:0 auto;padding:42px 20px 64px}
+    h1{font-size:clamp(26px,4vw,40px);margin:0 0 8px}
+    .subtitle{margin:0 0 28px;color:var(--muted)}
 
-    /* ====== 卡片网格 ====== */
+    /* —— 四列网格 —— */
     .grid{
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
+      display:grid; gap:18px;
+      grid-template-columns:repeat(4, minmax(0, 1fr)); /* 每行四个 */
+    }
+    /* 小屏自动降列（想强制始终四列就删掉两段媒体查询） */
+    @media (max-width:900px){ .grid{grid-template-columns:repeat(2, 1fr);} }
+    @media (max-width:520px){ .grid{grid-template-columns:1fr;} }
+
+    .section{margin-top:34px}
+    .section h2{
+      font-size:clamp(20px,3vw,26px);
+      margin:0 0 12px; padding:8px 6px 6px;
+      border-left:6px solid var(--accent); background:transparent;
     }
     .card{
-      display: block;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: var(--shadow);
-      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      display:block; text-decoration:none; color:inherit;
+      background:var(--card); border:1px solid var(--bd); border-radius:var(--radius);
+      overflow:hidden; box-shadow:var(--shadow);
+      transition:transform .18s ease, border-color .18s ease;
     }
-    .card:focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
-    .card:hover{ transform: translateY(-2px); }
-
-    /* ====== 封面图占位（替换成你的图片即可） ====== */
-    .thumb{
-      width: 100%;
-      aspect-ratio: 16 / 9;        /* 改成 1/1 可做正方形 */
-      object-fit: cover;
-      background: linear-gradient(135deg, #eef2ff, #e2e8f0);
-      border-bottom: 1px solid var(--border);
-      display: block;
-    }
-
-    /* ====== 文本区 ====== */
-    .meta{ padding: 12px 14px 14px; }
-    .site-title{
-      margin: 0 0 6px;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.35;
-    }
-    .desc{
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    /* 小徽标（可选） */
-    .badge{
-      position: absolute; top: 10px; left: 10px;
-      background: rgba(37, 99, 235, .92); color: #fff;
-      font-size: 12px; padding: 4px 8px; border-radius: 999px;
-      backdrop-filter: blur(4px);
-    }
-    .thumb-wrap{ position: relative; }
+    .card:hover{ transform:translateY(-2px); border-color:rgba(37,99,235,.35); }
+    .card:focus-visible{ outline:2px solid var(--accent); outline-offset:2px }
+    .thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; background:linear-gradient(135deg,#eef2ff,#e2e8f0); border-bottom:1px solid var(--bd); display:block; }
+    .meta{ padding:12px 14px 14px }
+    .site-title{ margin:0 0 6px; font-size:16px; font-weight:600; line-height:1.35 }
+    .desc{ margin:0; font-size:14px; color:var(--muted) }
   </style>
 </head>
 <body>
   <main class="wrap">
     <h1>ruhenry的推荐站</h1>
-    <p class="subtitle">下面是我常用/想分享的站点入口（点击图片即可访问）。</p>
+    <p class="subtitle">按类别整理，点击图片直达网站（留好了文本位置，按需填写或留空）。</p>
 
-    <section class="grid">
-
-      <!-- ====== 卡片 1（示例）====== 
-           TODO：把 href、img 的 src、alt、标题、描述改成你自己的
-      -->
-      <a class="card" href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="前往：示例站点">
-        <div class="thumb-wrap">
-          <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="示例站点封面图（替换我）">
-          <!-- <span class="badge">NEW</span>  想要徽标就把前面的注释去掉 -->
-        </div>
-        <div class="meta">
-          <h3 class="site-title">示例站点</h3>
-          <p class="desc">一句话介绍这个网站的用途。</p>
-        </div>
-      </a>
-
-      <!-- 卡片 2 -->
-      <a class="card" href="https://example.com/2" target="_blank" rel="noopener noreferrer" aria-label="前往：第二个站点">
-        <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="第二个站点封面图（替换我）">
-        <div class="meta">
-          <h3 class="site-title">第二个站点</h3>
-          <p class="desc">这里留给你写一小段描述。</p>
-        </div>
-      </a>
-
-      <!-- 卡片 3 -->
-      <a class="card" href="https://example.com/3" target="_blank" rel="noopener noreferrer" aria-label="前往：第三个站点">
-        <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="第三个站点封面图（替换我）">
-        <div class="meta">
-          <h3 class="site-title">第三个站点</h3>
-          <p class="desc">一句话描述。</p>
-        </div>
-      </a>
-
-      <!-- 卡片 4 -->
-      <a class="card" href="https://example.com/4" target="_blank" rel="noopener noreferrer" aria-label="前往：第四个站点">
-        <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="第四个站点封面图（替换我）">
-        <div class="meta">
-          <h3 class="site-title">第四个站点</h3>
-          <p class="desc">可留空或填写介绍。</p>
-        </div>
-      </a>
-
-      <!-- 卡片 5 -->
-      <a class="card" href="https://example.com/5" target="_blank" rel="noopener noreferrer" aria-label="前往：第五个站点">
-        <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="第五个站点封面图（替换我）">
-        <div class="meta">
-          <h3 class="site-title">第五个站点</h3>
-          <p class="desc">这里是文本位。</p>
-        </div>
-      </a>
-
-      <!-- 卡片 6 -->
-      <a class="card" href="https://example.com/6" target="_blank" rel="noopener noreferrer" aria-label="前往：第六个站点">
-        <img class="thumb" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/D/PwAI+AOG1QqzWwAAAABJRU5ErkJggg==" alt="第六个站点封面图（替换我）">
-        <div class="meta">
-          <h3 class="site-title">第六个站点</h3>
-          <p class="desc">这里是文本位。</p>
-        </div>
-      </a>
-
-      <!-- 需要更多就复制一整块 <a class="card"> ... </a> -->
+    <!-- ===== 电影网站 ===== -->
+    <section class="section" id="movie">
+      <h2>电影网站</h2>
+      <div class="grid">
+        <!-- 卡片：把 href / img src / alt / 标题 / 描述 换成你的 -->
+        <a class="card" href="https://example.com/movie1" target="_blank" rel="noopener">
+          <img class="thumb" src="images/movie1.jpg" alt="电影站点1（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电影站点一</h3>
+            <p class="desc">这里是一句话介绍（可留空）。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/movie2" target="_blank" rel="noopener">
+          <img class="thumb" src="images/movie2.jpg" alt="电影站点2（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电影站点二</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/movie3" target="_blank" rel="noopener">
+          <img class="thumb" src="images/movie3.jpg" alt="电影站点3（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电影站点三</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/movie4" target="_blank" rel="noopener">
+          <img class="thumb" src="images/movie4.jpg" alt="电影站点4（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电影站点四</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+      </div>
     </section>
+
+    <!-- ===== 电视剧网站 ===== -->
+    <section class="section" id="tv">
+      <h2>电视剧网站</h2>
+      <div class="grid">
+        <a class="card" href="https://example.com/tv1" target="_blank" rel="noopener">
+          <img class="thumb" src="images/tv1.jpg" alt="电视剧站点1（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电视剧站点一</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/tv2" target="_blank" rel="noopener">
+          <img class="thumb" src="images/tv2.jpg" alt="电视剧站点2（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电视剧站点二</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/tv3" target="_blank" rel="noopener">
+          <img class="thumb" src="images/tv3.jpg" alt="电视剧站点3（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电视剧站点三</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/tv4" target="_blank" rel="noopener">
+          <img class="thumb" src="images/tv4.jpg" alt="电视剧站点4（替换我）">
+          <div class="meta">
+            <h3 class="site-title">电视剧站点四</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== 小说网站 ===== -->
+    <section class="section" id="novel">
+      <h2>小说网站</h2>
+      <div class="grid">
+        <a class="card" href="https://example.com/novel1" target="_blank" rel="noopener">
+          <img class="thumb" src="images/novel1.jpg" alt="小说站点1（替换我）">
+          <div class="meta">
+            <h3 class="site-title">小说站点一</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/novel2" target="_blank" rel="noopener">
+          <img class="thumb" src="images/novel2.jpg" alt="小说站点2（替换我）">
+          <div class="meta">
+            <h3 class="site-title">小说站点二</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/novel3" target="_blank" rel="noopener">
+          <img class="thumb" src="images/novel3.jpg" alt="小说站点3（替换我）">
+          <div class="meta">
+            <h3 class="site-title">小说站点三</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+        <a class="card" href="https://example.com/novel4" target="_blank" rel="noopener">
+          <img class="thumb" src="images/novel4.jpg" alt="小说站点4（替换我）">
+          <div class="meta">
+            <h3 class="site-title">小说站点四</h3>
+            <p class="desc">描述文本位。</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 如需更多分类，复制一段 <section class="section">…</section> 改标题即可 -->
   </main>
 </body>
 </html>
